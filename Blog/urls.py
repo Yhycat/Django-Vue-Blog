@@ -13,24 +13,37 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.urls import path, include,re_path
+from django.urls import path, include, re_path
 from django.conf.urls.static import static
 from rest_framework import routers
+from rest_framework_jwt.views import obtain_jwt_token
 from core import views
 from Blog import settings
 from django.views.static import serve
 
 
-router = routers.DefaultRouter()
-router.register(r'profile', views.ProfileViewSet)
-# router.register(r'users', views.UserViewSet)
-# router.register(r'groups', views.GroupViewSet)
+# api
+router_api = routers.DefaultRouter()
+router_api.register(r'profile', views.ProfileViewSet)
+router_api.register(r'tag', views.TagViewSet)
+router_api.register(r'category', views.CategoryViewSet)
+router_api.register(r'article', views.ArticleViewSet)
+
+# user
+# router_user = routers.DefaultRouter()
+# router_user.register(r'login', obtain_jwt_token)
 
 
 urlpatterns = [
-    path('api/', include(router.urls)),
-    #   path('auth/', include('rest_framework.urls', namespace='rest_framework'))
-    # path(static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT))
-     re_path('^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT }),
-]
+    # 接口
+    path('api/', include(router_api.urls)),
 
+    # 登录
+    # path('admin/',  include(router_api.urls)),
+    path('admin/login/', obtain_jwt_token),
+
+    # 媒体文件
+    re_path('^media/(?P<path>.*)$', serve,
+            {'document_root': settings.MEDIA_ROOT}),
+
+]

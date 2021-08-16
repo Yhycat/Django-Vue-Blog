@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
+import datetime
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
@@ -37,8 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
+
     'core',
+    'django_filters',
     'rest_framework',
 ]
 
@@ -122,5 +124,49 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 
-MEDIA_URL = '/media/' 
-MEDIA_ROOT =  Path.joinpath(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+MEDIA_ROOT = Path.joinpath(BASE_DIR, 'media')
+
+
+# drf 配置
+REST_FRAMEWORK = {
+    # 自定义 错误处理
+    'EXCEPTION_HANDLER': 'common.views.exception_handler',
+
+
+    # 过滤器
+    'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',
+                                'rest_framework.filters.OrderingFilter',
+                                'rest_framework.filters.SearchFilter',
+                                # 'Blog.config.CustomSearchFilter'
+                                ),
+
+    # 限次
+    'DEFAULT_THROTTLE_CLASSES': (
+        'rest_framework.throttling.AnonRateThrottle',
+        'rest_framework.throttling.UserRateThrottle'
+    ),
+    'DEFAULT_THROTTLE_RATES': {
+        'anon': '100/day',
+        'user': '1000/day'
+    },
+
+    # 分页
+    # 'DEFAULT_PAGINATION_CLASS':  'rest_framework.pagination.PageNumberPagination',
+    # 'PAGE_SIZE': 10  # 每一个分页的的数据数目
+
+    # JWT
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        # 使用JWT Token认证
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+        # Basic类型的认证（账号和密码）
+        'rest_framework.authentication.SessionAuthentication',
+        # Session会话认证
+        'rest_framework.authentication.BasicAuthentication',
+    ],
+
+}
+# jwt 配置
+JWT_AUTH = {
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(days=7)
+}
