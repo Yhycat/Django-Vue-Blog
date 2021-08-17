@@ -168,5 +168,8 @@ REST_FRAMEWORK = {
 }
 # jwt 配置
 JWT_AUTH = {
-    'JWT_EXPIRATION_DELTA': datetime.timedelta(days=7)
+    # 过期时间
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(days=7),
+    # 自定义返回结果
+    'JWT_RESPONSE_PAYLOAD_HANDLER': 'common.jwt.jwt_response_payload_handler',
 }

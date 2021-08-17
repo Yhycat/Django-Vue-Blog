@@ -38,5 +38,7 @@
 </script>
 
 <style scoped>
-
+.el-row{
+    height: 100%;
+}
 </style>

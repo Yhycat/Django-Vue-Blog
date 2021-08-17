@@ -1,8 +1,10 @@
 import datetime
 
 from rest_framework import viewsets, permissions, status
-from rest_framework import permissions
+from rest_framework.views import APIView
+from rest_framework.viewsets import ViewSetMixin
 from rest_framework.response import Response
+
 from rest_framework.decorators import action
 # 公共 viewset 
 from common.views import CustomViewSet
@@ -17,7 +19,20 @@ from Blog.config import StandardResultsSetPagination
 from core.serializers import ProfileSerializer, TagSerializer, CategorySerializer, ArticleSerializer
 from core.models import Profile, Tag, Category, Article
 
+# response消息
+from common.views import ReturnMsg
 
+
+class UserViewSet(ViewSetMixin, APIView):
+    """
+    用户认证
+    """
+
+    def auth(self,request):
+        data = {
+            "is_superuser":request.user.is_superuser
+        }
+        return Response(ReturnMsg(data=data).dict(), status=status.HTTP_200_OK)
 
 
 class ProfileViewSet(CustomViewSet):
@@ -26,7 +41,6 @@ class ProfileViewSet(CustomViewSet):
     """
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
-
 
 class TagViewSet(CustomViewSet):
     """

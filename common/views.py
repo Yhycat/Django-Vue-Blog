@@ -14,7 +14,7 @@ class ReturnMsg(object):
     def __init__(self, code=1, msg='成功', errors=None, data=None):
         self.code = code
         self.msg = msg
-        self.errors = errors if errors else {}
+        self.errors = errors if errors else ""
         self.data = data if data else []
 
     def dict(self):
@@ -66,8 +66,8 @@ class CustomViewSet(viewsets.ModelViewSet):
         if self.name == 'Search':
             return []
 
-        if self.action not in ['list', 'retrieve']:
-            return [permissions.IsAdminUser()]
+        # if self.action not in ['list', 'retrieve']:
+        #     return [permissions.IsAdminUser()]
         return []
 
 

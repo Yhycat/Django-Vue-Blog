@@ -1,14 +1,12 @@
 <template>
     <div>
-        <el-card v-for="i in 4" :key="i">
-            123
-        </el-card>
+        404
     </div>
 </template>
 
 <script>
     export default {
-        name: 'ArticleCardList',
+        name: '',
         props: {
 
         },
@@ -34,10 +32,5 @@
 </script>
 
 <style scoped>
-    .el-card {
-        width: 100%;
-        height: 100%;
-        margin-bottom: 20px;
 
-    }
 </style>

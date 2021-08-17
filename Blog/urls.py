@@ -30,8 +30,6 @@ router_api.register(r'category', views.CategoryViewSet)
 router_api.register(r'article', views.ArticleViewSet)
 
 # user
-# router_user = routers.DefaultRouter()
-# router_user.register(r'login', obtain_jwt_token)
 
 
 urlpatterns = [
@@ -39,8 +37,12 @@ urlpatterns = [
     path('api/', include(router_api.urls)),
 
     # 登录
-    # path('admin/',  include(router_api.urls)),
-    path('admin/login/', obtain_jwt_token),
+    path('auth/login/', obtain_jwt_token),
+
+    # 权限认证
+    path('auth/user/', views.UserViewSet.as_view({
+        "get": "auth"
+    })),
 
     # 媒体文件
     re_path('^media/(?P<path>.*)$', serve,

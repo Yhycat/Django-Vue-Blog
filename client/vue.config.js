@@ -40,7 +40,7 @@ module.exports = {
       // change xxx-api/login => mock/login
       // detail: https://cli.vuejs.org/config/#devserver-proxy
       ['/']: {
-        target: 'http://127.0.0.1:8091/',
+        target: ' http://127.0.0.1:8000/',
         // target: 'http://stocksystem.chinalxtx.cn',
         changeOrigin: true,
         pathRewrite: {

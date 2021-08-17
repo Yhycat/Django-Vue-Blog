@@ -64,6 +64,18 @@
   .header {
     padding-left: 5%;
     padding-right: 5%;
-    
+    height: 100%;
+
+
+  }
+
+  .el-container {
+    height: 100%;
+
+  }
+
+  .NavHeader {
+    margin: auto;
+    position: absolute;
   }
 </style>
