@@ -35,7 +35,9 @@
             </el-header>
             <el-main>
                 <div class="main">
-                    <ProfileAdmin v-if="defaultActive='profile'" />
+                    <router-view />
+
+
                 </div>
             </el-main>
         </el-container>
@@ -45,15 +47,12 @@
 </template>
 
 <script>
-    import ProfileAdmin from "@/components/ProfileAdmin/index.vue"
-
     export default {
         name: 'Admin',
         props: {
 
         },
         components: {
-            ProfileAdmin
 
         },
 
@@ -72,13 +71,18 @@
 
             console.log(this)
 
+
+
         },
         created() {},
         methods: {
 
 
             handleSelect(key, keyPath) {
-                console.log(key, keyPath);
+                if (this.$router.currentRoute.fullPath != "/admin/" + key) {
+                    return this.$router.push("/admin/" + key)
+                }
+
             },
 
 

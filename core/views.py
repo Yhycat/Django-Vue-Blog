@@ -42,6 +42,9 @@ class ProfileViewSet(CustomViewSet):
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
 
+    # def update(self, request, pk=None, *args, **kwargs):
+    #     pass
+
 class TagViewSet(CustomViewSet):
     """
     标签

@@ -114,7 +114,7 @@ def exception_handler(exc, context):
 
         # 修改部分
         if isinstance(exc.detail, (list, dict)):
-            if isinstance(detail, list):
+            if isinstance(exc.detail, list):
                 errors = exc.detail
             else:
                 errors = {k: v[0] for k, v in exc.detail.items()}

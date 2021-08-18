@@ -9,7 +9,7 @@
                         </el-avatar>
                     </el-col>
                     <el-col :span="12">
-                        <el-upload action="#" :on-change="handleChange" :auto-upload="false">
+                        <el-upload action="#" ref="avatarUpload" :on-change="handleChange" :auto-upload="false">
                             <el-button size="small" type="primary">点击上传</el-button>
 
                         </el-upload>
@@ -38,6 +38,9 @@
     import {
         fetchProfile
     } from "@/api/common.js"
+    import {
+        updateProfile
+    } from "@/api/backend.js"
 
     export default {
         name: 'ProfileAdmin',
@@ -59,6 +62,17 @@
         },
         methods: {
             handleSave() {
+                var fd = new FormData();
+                // if (this.$refs.avatarUpload.uploadFiles.length != 0) {
+                fd.append('avater', this.$refs.avatarUpload.uploadFiles[0].raw); //传文件
+                // }
+                fd.append('descriotion',this.form.descriotion)
+                fd.append('email',this.form.email)
+                fd.append('github',this.form.github)
+                updateProfile(fd).then(response => {
+                    console.log(response)
+                })
+
 
             },
 

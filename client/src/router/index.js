@@ -17,7 +17,13 @@ const routes = [{
   {
     path: '/admin',
     name: 'Admin',
-    component: () => import('@/views/Admin.vue')
+    redirect: '/admin/profile',
+    component: () => import('@/views/Admin.vue'),
+    children: [{
+      path: 'profile',
+      name: 'ProfileAdmin',
+      component: () => import("@/components/ProfileAdmin/index"),
+    }]
   },
   {
     path: '/404',
@@ -25,7 +31,11 @@ const routes = [{
     hidden: true
   },
 
-  { path: '*', redirect: '/404', hidden: true }
+  {
+    path: '*',
+    redirect: '/404',
+    hidden: true
+  }
 
 ]
 
@@ -38,4 +48,3 @@ const router = new VueRouter({
 
 
 export default router
-
