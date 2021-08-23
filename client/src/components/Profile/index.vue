@@ -8,7 +8,7 @@
             </div>
         </el-row>
         <el-row type="flex" align="middle">
-            <span class="text">There is only one success to be able to spend your life in your own favorite way.</span>
+            <span class="text">{{profile.descriotion}}</span>
         </el-row>
 
         <el-row type="flex" class="tag" align="middle" justify="space-between">
@@ -24,15 +24,15 @@
         </el-row>
         <el-row type="flex" class="tag" align="middle" justify="space-between">
             <el-col :span="8">
-                <el-link :underline="false" class="number-link">2</el-link>
+                <el-link :underline="false" class="number-link">{{profile.article_num}}</el-link>
 
             </el-col>
             <el-col :span="8">
-                <el-link :underline="false" class="number-link">2</el-link>
+                <el-link :underline="false" class="number-link">{{profile.category_num}}</el-link>
 
             </el-col>
             <el-col :span="8">
-                <el-link :underline="false" class="number-link">2</el-link>
+                <el-link :underline="false" class="number-link">{{profile.tag_num}}</el-link>
 
             </el-col>
         </el-row>
@@ -41,6 +41,10 @@
 </template>
 
 <script>
+    import {
+        fetchProfile
+    } from "@/api/common.js"
+
     export default {
         name: 'Profile',
         props: {
@@ -61,7 +65,13 @@
 
         },
         methods: {
-
+            handleProfile(){
+                fetchProfile().then(response =>{
+                    if (response.code ==1){
+                        this.profile = response.data
+                    }
+                })
+            }
         },
 
 

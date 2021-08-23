@@ -65,6 +65,10 @@ class Category(models.Model):
         self.citations -= 1
         self.save(update_fields=['citations'])
 
+    @classmethod
+    def get_number(cls):
+        return cls.objects.all().__len__()
+
 
 class Tag(models.Model):
     name = models.CharField(max_length=16, verbose_name='标签名')
@@ -102,6 +106,10 @@ class Tag(models.Model):
     def decrease_citations(self):
         self.citations -= 1
         self.save(update_fields=['citations'])
+
+    @classmethod
+    def get_number(cls):
+        return cls.objects.all().__len__()
 
 
 class Article(models.Model):
@@ -153,3 +161,7 @@ class Article(models.Model):
     def increase_readings(self):
         self.views += 1
         self.save(update_fields=['views'])
+
+    @classmethod
+    def get_number(cls):
+        return cls.objects.all().__len__()

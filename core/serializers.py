@@ -4,9 +4,26 @@ from core.models import Profile, Tag, Category, Article
 
 
 class ProfileSerializer(serializers.HyperlinkedModelSerializer):
+
+    article_num = serializers.SerializerMethodField()
+    category_num = serializers.SerializerMethodField()
+    tag_num = serializers.SerializerMethodField()
+
     class Meta:
         model = Profile
-        fields = ['url', 'avater', 'descriotion', 'email', 'github']
+        fields = ['url', 'avater', 'descriotion', 'email',
+                  'github', 'article_num', 'category_num', 'tag_num']
+
+    def get_article_num(self, obj):
+        return Article.get_number()
+
+    def get_category_num(self, obj):
+        return Category.get_number()
+
+
+    def get_tag_num(self, obj):
+        return Tag.get_number()
+
 
 
 class CategorySerializer(serializers.ModelSerializer):
